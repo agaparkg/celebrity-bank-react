@@ -11,11 +11,13 @@ class App extends Component {
       activePage: 1,
       total_pages: 0,
       total_results: 0,
+      isLoading: false
     }
   }
   
   componentDidMount(){
     const { activePage } = this.state;
+    this.setState({ isLoading: false})
     this.fetchJson(activePage)
   }
 
@@ -25,16 +27,35 @@ class App extends Component {
 
   fetchJson = (activePage) => {
     const url = `https://api.themoviedb.org/3/person/popular?api_key=df8b08ecb436696fee41a00f8d87a540&language=en&page=${activePage}`
-    fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      this.setState({celebrities: data.results, activePage: data.page})
-    })
-    .catch(err => console.log(err));
+    setTimeout(() => {
+      fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({celebrities: data.results, activePage: data.page, isLoading: true})
+      })
+      .catch(err => console.log(err));
+    }, 2000)
   }
 
   render(){
-    const {celebrities, activePage} = this.state;
+    const {celebrities, activePage, isLoading} = this.state;
+    const movieContent = (
+      <ul className='movies'>
+        {
+          celebrities.map(celebrity => {
+            const castedIn = celebrity.known_for.map(movie => movie.title)
+            return (
+              <li key={celebrity.id} className='movie'>
+                <img src={`http://image.tmdb.org/t/p/w185${celebrity.profile_path}`} alt="celebrity avatar"/>
+                <div className="celeb-name"><strong>{celebrity.name}</strong></div>
+                <div className="celeb-name">{castedIn.join(", ")}</div>
+              </li>
+            )
+          })
+        }
+      </ul>
+    )
+    const mainContent = !isLoading ? <h3 className="loading-text">Loading...</h3> : movieContent;
     return (
       <div className="App">
         <div className='wrapper'>
@@ -49,20 +70,7 @@ class App extends Component {
             />
           </div>
           <main className='content'>
-            <ul className='movies'>
-              {
-                celebrities.map(celebrity => {
-                  const castedIn = celebrity.known_for.map(movie => movie.title)
-                  return (
-                    <li key={celebrity.id} className='movie'>
-                      <img src={`http://image.tmdb.org/t/p/w185${celebrity.profile_path}`} alt="celebrity avatar"/>
-                      <div className="celeb-name"><strong>{celebrity.name}</strong></div>
-                      <div className="celeb-name">{castedIn.join(", ")}</div>
-                    </li>
-                  )
-                })
-              }
-            </ul>
+            {mainContent}
           </main>
         </div>
       </div>

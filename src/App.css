@@ -51,3 +51,7 @@ h1 {
   display: flex;
   justify-content: center;
 }
+
+.loading-text {
+  border: none;
+}
