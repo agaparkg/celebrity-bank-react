@@ -18,10 +18,11 @@ class App extends Component {
   componentDidMount(){
     const { activePage } = this.state;
     this.setState({ isLoading: false})
-    this.fetchJson(activePage)
+      this.fetchJson(activePage)
   }
 
   handlePageChange = (pageNumber) => {
+    this.setState({ isLoading: false, activePage: pageNumber})
     this.fetchJson(pageNumber)
   }
 
@@ -34,7 +35,7 @@ class App extends Component {
         this.setState({celebrities: data.results, activePage: data.page, isLoading: true})
       })
       .catch(err => console.log(err));
-    }, 2000)
+    }, 500)
   }
 
   render(){
