@@ -46,12 +46,22 @@ h1 {
   font-style: normal;
 }
 
-.pagination,
+.pagination-count,
 .content {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
 }
 
 .loading-text {
   border: none;
+}
+
+.page-results {
+  margin-bottom: 10px;
+  color: navy;
+  font-size: 14px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }

@@ -11,7 +11,9 @@ class App extends Component {
       activePage: 1,
       total_pages: 0,
       total_results: 0,
-      isLoading: false
+      isLoading: false,
+      leftLimit: 0,
+      limit: 20
     }
   }
   
@@ -61,14 +63,17 @@ class App extends Component {
       <div className="App">
         <div className='wrapper'>
           <header><h1>Movie Celebrities</h1></header>
-          <div className="pagination">
-            <Pagination
-              activePage={activePage}
-              itemsCountPerPage={20}
-              totalItemsCount={10000}
-              pageRangeDisplayed={10}
-              onChange={this.handlePageChange.bind(this)}
-            />
+          <div className="pagination-count">
+            <div>
+              <Pagination
+                activePage={activePage}
+                itemsCountPerPage={20}
+                totalItemsCount={10000}
+                pageRangeDisplayed={10}
+                onChange={this.handlePageChange.bind(this)}
+              />
+            </div>
+            <div className="page-results">Showing results {0} to {20}</div>
           </div>
           <main className='content'>
             {mainContent}
