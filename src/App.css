@@ -7,6 +7,7 @@ header {
 }
 h1 {
   margin: 0;
+  margin-bottom: 10px;
   border-bottom: 1px solid rgb(202, 200, 200);
   padding-bottom: 10px;
 }
@@ -50,18 +51,45 @@ h1 {
 .content {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
-}
-
-.loading-text {
-  border: none;
 }
 
 .page-results {
   margin-bottom: 10px;
+  border: 1px solid rgb(213, 209, 209);
+  padding: 5px 20px;
+  font-weight: bold;
   color: navy;
-  font-size: 14px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgb(47, 47, 250);
+  font-size: 12px;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.known-for-movies {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#celebrity-profile {
+  display: flex;
+  justify-content: center;
+}
+.modalContent {
+  clear: both;
+}
+
+#celebrity-name,
+#movies-casted-in,
+#celebrity-popularity {
+  text-align: center;
+}
+
+.each-movie-title {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 45px;
 }
