@@ -11,7 +11,7 @@ const customStyles = {
     color: 'white',
     zIndex: 9,
     width: '400px',
-    height: '620px',
+    height: '650px',
     borderRadius: '20px'
   }
 };
@@ -21,7 +21,9 @@ export default function MoviesModal({showModal, handleCloseModal, modalContentDa
   const castedIn = showModal && modalContentData.known_for.map(movie => {
     return (
       <div className='each-movie'>
-        <img src={`${base_url}${profile_sizes[0]}${movie.poster_path}`} alt=""/>
+        <div className='movie-poster'>
+          <img src={`${base_url}${profile_sizes[0]}${movie.poster_path}`} alt=""/>
+        </div>
         <div className='each-movie-title'>{movie.title}</div>
       </div>
     )
