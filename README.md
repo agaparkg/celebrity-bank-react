@@ -6,9 +6,9 @@
 
 ![Output](modal.png)
 
-## Reactstrap Pagination reference:
+## Reactstrap Pagination reference: [react-js-pagination](https://www.npmjs.com/package/react-js-pagination)
 
-`npm install [react-js-pagination](https://www.npmjs.com/package/react-js-pagination)`
+`npm install react-js-pagination`
 
 ## HTML layout compatible with Bootstrap 3 pagination stylesheets.
 
@@ -17,11 +17,8 @@
 ### and these on top:
 
 `import Pagination from "react-js-pagination";`
+
 `require("bootstrap/less/bootstrap.less");`
-
-## World Countries with Reactstrap Pagination
-
-This app was built with React v17.0.1
 
 API for all celebrities
 [https://api.themoviedb.org/3/person/popular?api_key=df8b08ecb436696fee41a00f8d87a540&language=en&page=1](https://api.themoviedb.org/3/person/popular?api_key=df8b08ecb436696fee41a00f8d87a540&language=en&page=1)
