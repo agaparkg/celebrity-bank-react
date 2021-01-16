@@ -21,7 +21,9 @@
 `require("bootstrap/less/bootstrap.less");`
 
 API for all celebrities
-[https://api.themoviedb.org/3/person/popular?api_key=df8b08ecb436696fee41a00f8d87a540&language=en&page=1](https://api.themoviedb.org/3/person/popular?api_key=df8b08ecb436696fee41a00f8d87a540&language=en&page=1)
+[https://api.themoviedb.org/3/person/popular?api_key=<<api_key>>&language=en-US&page=1](https://developers.themoviedb.org/3/people/get-popular-people)
+
+You need to put your own "api_key=<<api_key>>" in the url
 
 This api displays only page 1, which contains 20 celebrity infos, change the last number to grab data for different pages
 

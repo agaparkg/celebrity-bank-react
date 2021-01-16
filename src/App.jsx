@@ -1,12 +1,13 @@
-import React, { Component } from 'react'
-import { Spinner } from 'reactstrap';
+import React, { Component } from "react";
+import { Spinner } from "reactstrap";
 import CelebsPagination from "./components/CelebsPagination.jsx";
 import CelebritiesComp from "./components/CelebritiesComp.jsx";
-import './App.css';
+import dotenv from "dotenv";
+dotenv.config();
 
 class App extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       celebrities: [],
       activePage: 1,
@@ -16,39 +17,51 @@ class App extends Component {
       total_results: 0,
       limit: 20,
       showModal: false,
-      modalContentData: {}
-    }
+      modalContentData: {},
+    };
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
     const { activePage } = this.state;
-    this.setState({ isLoading: false})
-      this.fetchJson(activePage)
+    this.setState({ isLoading: false });
+    this.fetchJson(activePage);
   }
 
   handlePageChange = (pageNumber) => {
-    const {celebrities} = this.state;
-    const limit = pageNumber*celebrities.length
-    const leftLimit = (pageNumber - 1)*celebrities.length + 1
+    const { celebrities } = this.state;
+    const limit = pageNumber * celebrities.length;
+    const leftLimit = (pageNumber - 1) * celebrities.length + 1;
 
-    this.setState({ isLoading: false, activePage: pageNumber, limit, leftLimit})
-    this.fetchJson(pageNumber)
-  }
+    this.setState({
+      isLoading: false,
+      activePage: pageNumber,
+      limit,
+      leftLimit,
+    });
+    this.fetchJson(pageNumber);
+  };
 
   fetchJson = (activePage) => {
-    const url = `https://api.themoviedb.org/3/person/popular?api_key=df8b08ecb436696fee41a00f8d87a540&language=en&page=${activePage}`
+    const url = `${process.env.REACT_APP_MOVIE_URL}&page=${activePage}`;
     setTimeout(() => {
       fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({celebrities: data.results, activePage: data.page, isLoading: true, total_pages: data.total_pages})
-      })
-      .catch(err => console.log(err));
-    }, 500)
-  }
+        .then((res) => res.json())
+        .then((data) => {
+          this.setState({
+            celebrities: data.results,
+            activePage: data.page,
+            isLoading: true,
+            total_pages: data.total_pages,
+          });
+        })
+        .catch((err) => console.log(err));
+    }, 500);
+  };
 
   handleOpenModal = (celebrity_id) => {
-    const singleCelebrity = this.state.celebrities.find(celebrity => celebrity.id === celebrity_id)
+    const singleCelebrity = this.state.celebrities.find(
+      (celebrity) => celebrity.id === celebrity_id
+    );
     this.setState({ showModal: true, modalContentData: singleCelebrity });
   };
 
@@ -56,23 +69,48 @@ class App extends Component {
     this.setState({ showModal: false });
   };
 
-  render(){
-    const {celebrities, activePage, isLoading, leftLimit, limit, total_pages, showModal, modalContentData} = this.state;
-    const mainContent = !isLoading ? <Spinner color="primary" /> : <CelebritiesComp handleCloseModal={this.handleCloseModal} handleOpenModal={this.handleOpenModal} celebrities={celebrities} showModal={showModal} modalContentData={modalContentData} />;
-    console.log('modal content data =', modalContentData)
+  render() {
+    const {
+      celebrities,
+      activePage,
+      isLoading,
+      leftLimit,
+      limit,
+      total_pages,
+      showModal,
+      modalContentData,
+    } = this.state;
+    const mainContent = !isLoading ? (
+      <Spinner color="primary" />
+    ) : (
+      <CelebritiesComp
+        handleCloseModal={this.handleCloseModal}
+        handleOpenModal={this.handleOpenModal}
+        celebrities={celebrities}
+        showModal={showModal}
+        modalContentData={modalContentData}
+      />
+    );
+    console.log("modal content data =", modalContentData);
     return (
       <div className="App">
-        <div className='wrapper'>
-          <header><h1>Movie Celebrities</h1></header>
+        <div className="wrapper">
+          <header>
+            <h1>Movie Celebrities</h1>
+          </header>
           <div className="pagination-count">
             <div>
-              <CelebsPagination total_pages={total_pages} handlePageChange={this.handlePageChange} activePage={activePage}/>
+              <CelebsPagination
+                total_pages={total_pages}
+                handlePageChange={this.handlePageChange}
+                activePage={activePage}
+              />
             </div>
-            <div className="page-results">Showing results {leftLimit} to {limit}</div>
+            <div className="page-results">
+              Showing results {leftLimit} to {limit}
+            </div>
           </div>
-          <main className='content'>
-            {mainContent}
-          </main>
+          <main className="content">{mainContent}</main>
         </div>
       </div>
     );
