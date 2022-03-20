@@ -1,9 +1,12 @@
-import React, { Component } from "react";
-import { Spinner } from "reactstrap";
-import CelebsPagination from "./components/CelebsPagination.jsx";
-import CelebritiesComp from "./components/CelebritiesComp.jsx";
-import dotenv from "dotenv";
-dotenv.config();
+import React, { Component } from 'react';
+import { Spinner } from 'reactstrap';
+import CelebsPagination from './components/CelebsPagination.jsx';
+import CelebritiesComp from './components/CelebritiesComp.jsx';
+// import dotenv from 'dotenv';
+// dotenv.config();
+
+const movieUrl =
+  'https://api.themoviedb.org/3/person/popular?api_key=df8b08ecb436696fee41a00f8d87a540&language=en';
 
 class App extends Component {
   constructor() {
@@ -42,7 +45,7 @@ class App extends Component {
   };
 
   fetchJson = (activePage) => {
-    const url = `${process.env.REACT_APP_MOVIE_URL}&page=${activePage}`;
+    const url = `${movieUrl}&page=${activePage}`;
     setTimeout(() => {
       fetch(url)
         .then((res) => res.json())
@@ -81,7 +84,7 @@ class App extends Component {
       modalContentData,
     } = this.state;
     const mainContent = !isLoading ? (
-      <Spinner color="primary" />
+      <Spinner color='primary' />
     ) : (
       <CelebritiesComp
         handleCloseModal={this.handleCloseModal}
@@ -91,14 +94,14 @@ class App extends Component {
         modalContentData={modalContentData}
       />
     );
-    console.log("modal content data =", modalContentData);
+    console.log('modal content data =', modalContentData);
     return (
-      <div className="App">
-        <div className="wrapper">
+      <div className='App'>
+        <div className='wrapper'>
           <header>
             <h1>Movie Celebrities</h1>
           </header>
-          <div className="pagination-count">
+          <div className='pagination-count'>
             <div>
               <CelebsPagination
                 total_pages={total_pages}
@@ -106,11 +109,11 @@ class App extends Component {
                 activePage={activePage}
               />
             </div>
-            <div className="page-results">
+            <div className='page-results'>
               Showing results {leftLimit} to {limit}
             </div>
           </div>
-          <main className="content">{mainContent}</main>
+          <main className='content'>{mainContent}</main>
         </div>
       </div>
     );
